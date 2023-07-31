@@ -1,50 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Styles.css" />
     <title>JavaScript Calculator</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="calculator">
-            <form>
-                <div class="display">
-                    <input type="text" class="display">
-                </div>
-                <div>
-                    <input type="button" value="AC" onclick="display.value = ''" class="operator">
-                    <input type="button" value="DE" onclick="display.value = display.value.toString().slice(0, -1)" class="operator">
-                    <input type="button" value="." onclick="display.value += '.'" class="operator">
-                    <input type="button" value="/" onclick="display.value += '/'" class="operator">    
-                </div>
-                <div>
-                    <input type="button" value="7" onclick="display.value += '7'">
-                    <input type="button" value="8" onclick="display.value += '8'">
-                    <input type="button" value="9" onclick="display.value += '9'">
-                    <input type="button" value="*" onclick="display.value += '*'" class="operator">    
-                </div>
-                <div>
-                    <input type="button" value="4" onclick="display.value += '4'">
-                    <input type="button" value="5" onclick="display.value += '5'">
-                    <input type="button" value="6" onclick="display.value += '6'">
-                    <input type="button" value="-" onclick="display.value += '-'" class="operator">    
-                </div>
-                <div>
-                    <input type="button" value="1" onclick="display.value += '1'">
-                    <input type="button" value="2" onclick="display.value += '2'">
-                    <input type="button" value="3" onclick="display.value += '3'">
-                    <input type="button" value="+" onclick="display.value += '+'" class="operator">    
-                </div>
-                <div>
-                    <input type="button" value="00" onclick="display.value += '00'">
-                    <input type="button" value="0" onclick="display.value += '0'">
-                    <input type="button" value="=" class="equal operator" onclick="display.value = eval(display.value)">   
-                </div>
-            </form>
-        </div>
+      <div class="calculator">
+        <form>
+          <div class="calculator-display">
+            <input type="text" class="display" readonly />
+          </div>
+          <div>
+            <input
+              type="button"
+              value="AC"
+              onclick="clearDisplay(event)"
+              class="operator"
+            />
+            <input
+              type="button"
+              value="DE"
+              onclick="deleteLastCharacter(event)"
+              class="operator"
+            />
+            <input
+              type="button"
+              value="."
+              onclick="appendToDisplay('.', event)"
+              class="operator"
+            />
+            <input
+              type="button"
+              value="/"
+              onclick="appendToDisplay('/', event)"
+              class="operator"
+            />
+          </div>
+          <div>
+            <input
+              type="button"
+              value="7"
+              onclick="appendToDisplay('7', event)"
+            />
+            <input
+              type="button"
+              value="8"
+              onclick="appendToDisplay('8', event)"
+            />
+            <input
+              type="button"
+              value="9"
+              onclick="appendToDisplay('9', event)"
+            />
+            <input
+              type="button"
+              value="*"
+              onclick="appendToDisplay('*', event)"
+              class="operator"
+            />
+          </div>
+          <div>
+            <input
+              type="button"
+              value="4"
+              onclick="appendToDisplay('4', event)"
+            />
+            <input
+              type="button"
+              value="5"
+              onclick="appendToDisplay('5', event)"
+            />
+            <input
+              type="button"
+              value="6"
+              onclick="appendToDisplay('6', event)"
+            />
+            <input
+              type="button"
+              value="-"
+              onclick="appendToDisplay('-', event)"
+              class="operator"
+            />
+          </div>
+          <div>
+            <input
+              type="button"
+              value="1"
+              onclick="appendToDisplay('1', event)"
+            />
+            <input
+              type="button"
+              value="2"
+              onclick="appendToDisplay('2', event)"
+            />
+            <input
+              type="button"
+              value="3"
+              onclick="appendToDisplay('3', event)"
+            />
+            <input
+              type="button"
+              value="+"
+              onclick="appendToDisplay('+', event)"
+              class="operator"
+            />
+          </div>
+          <div>
+            <input
+              type="button"
+              value="00"
+              onclick="appendToDisplay('00', event)"
+            />
+            <input
+              type="button"
+              value="0"
+              onclick="appendToDisplay('0', event)"
+            />
+            <input
+              type="button"
+              value="="
+              class="equal operator"
+              onclick="evaluateExpression(event)"
+            />
+          </div>
+        </form>
+      </div>
     </div>
-</body>
+
+    <script>
+      function appendToDisplay(value, event) {
+        event.preventDefault();
+        document.querySelector(".display").value += value;
+      }
+
+      function clearDisplay(event) {
+        event.preventDefault();
+        document.querySelector(".display").value = "";
+      }
+
+      function deleteLastCharacter(event) {
+        event.preventDefault();
+        const currentValue = document.querySelector(".display").value;
+        document.querySelector(".display").value = currentValue.slice(0, -1);
+      }
+
+      function evaluateExpression(event) {
+        event.preventDefault();
+        const expression = document.querySelector(".display").value;
+        const result = eval(expression);
+        document.querySelector(".display").value = result;
+      }
+    </script>
+  </body>
 </html>
